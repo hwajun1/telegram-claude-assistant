@@ -294,7 +294,9 @@ async def call_claude(message: str, timeout: int = DEFAULT_TIMEOUT) -> tuple[str
         CLAUDE_CLI_PATH, "-p",
         "--dangerously-skip-permissions",
     ]
-    if not DEV_MODE:
+    if DEV_MODE:
+        cmd += ["--model", "opus"]
+    else:
         cmd += ["--append-system-prompt", build_schedule_prompt()]
     cmd.append(message)
     process = await asyncio.create_subprocess_exec(
