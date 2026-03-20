@@ -6,7 +6,7 @@ Telegram bot powered by Claude CLI with smart scheduling and pattern learning.
 
 ```bash
 # 1. 의존성 설치
-pip install python-telegram-bot pyyaml
+pip install -r requirements.txt
 
 # 2. Claude CLI 설치 (https://docs.anthropic.com/en/docs/claude-code)
 
@@ -18,6 +18,14 @@ cp config.yaml.example config.yaml
 python3 bot.py          # 기본 모드
 python3 bot.py dev      # 개발 모드 (별도 토큰/로그, 시스템 프롬프트 미적용)
 ```
+
+## Dependencies
+
+| 패키지 | 용도 |
+|--------|------|
+| [python-telegram-bot](https://python-telegram-bot.org/) | 텔레그램 Bot API |
+| [PyYAML](https://pyyaml.org/) | 설정 파일 및 스케줄 YAML 파싱 |
+| [Claude CLI](https://docs.anthropic.com/en/docs/claude-code) | AI 응답 생성 (별도 설치) |
 
 ## Commands
 
