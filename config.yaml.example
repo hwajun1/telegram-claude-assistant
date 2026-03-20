@@ -1,0 +1,13 @@
+# 민감 정보 설정 파일 — config.yaml로 복사 후 값을 채워 사용
+# cp config.yaml.example config.yaml
+
+telegram:
+  tokens:
+    default: "YOUR_BOT_TOKEN_HERE"
+    dev: "YOUR_DEV_BOT_TOKEN_HERE"
+  chat_id: "YOUR_CHAT_ID"
+  allowed_user_ids:
+    - 123456789
+
+claude:
+  cli_path: "/path/to/claude"

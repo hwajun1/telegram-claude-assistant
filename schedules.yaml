@@ -1,0 +1,32 @@
+timezone: Asia/Seoul
+schedules:
+- id: morning_weather_bike_commute
+  type: reminder
+  time: 06:00
+  repeat: weekdays
+  query: '판교와 용인수지 지역의 오늘 날씨를 여러 일기예보 사이트(기상청, AccuWeather, Weather.com 등)를 비교해서 알려줘.
+    기온, 강수확률, 바람, 미세먼지를 포함해줘. 그리고 수지에서 판교로 자전거 출근이 적합한지 추천/비추천 판단도 해줘. 비추천 기준: 비/눈
+    확률 40% 이상, 기온 -3도 이하 또는 35도 이상, 강풍(풍속 8m/s 이상), 미세먼지 나쁨 이상.'
+  chat_id: 8240727660
+  created_at: '2026-03-20'
+- id: lunch_reminder_0320
+  type: reminder
+  time: 2026-03-20 12:00
+  repeat: once
+  query: 점심시간이에요! 맛있는 점심 드세요 🍽️
+  chat_id: 8240727660
+  created_at: '2026-03-20'
+pattern_log:
+- date: '2026-03-20'
+  time: 09:23
+  chat_id: 8240727660
+  query: 밤사이 뉴스 정리해줘. 경제, 전쟁, 주가 위주로
+- date: '2026-03-20'
+  time: 09:26
+  chat_id: 8240727660
+  query: 매일 아침 6시에 일기예보 제공 사이트들을 비교하여 판교, 용인수지 지역의 날씨를 알려줘. 가능하면 수지에서 판교로 가는 자전거 출근을
+    추천하는지 비추천하는지도 알려줘
+- date: '2026-03-20'
+  time: 09:30
+  chat_id: 8240727660
+  query: 오늘 12시에 점심시간이라고 알림줘
