@@ -1,6 +1,8 @@
 # Telegram Claude Assistant
 
-Telegram bot powered by Claude CLI with smart scheduling and pattern learning.
+Build your own AI personal assistant on Telegram, powered by Claude CLI running on your personal PC.
+
+Customize the prompt to create any assistant you need — work planner, investment advisor, news curator, and more. It even learns your conversation patterns and sends proactive alerts.
 
 ## Quick Start
 
