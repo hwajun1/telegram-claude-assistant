@@ -228,6 +228,11 @@ async def run_scheduler(bot, call_claude_fn):
                     logger.info(f"[스케줄 실행] id={sid}, query={query[:50]}")
                     try:
                         response, stderr, timed_out = await call_claude_fn(query)
+                        logger.info(f"[스케줄 응답] id={sid}, timed_out={timed_out}, response_len={len(response)}, stderr_len={len(stderr)}")
+                        if timed_out:
+                            logger.warning(f"[스케줄 타임아웃] id={sid}, partial_len={len(response)}")
+                        if stderr:
+                            logger.warning(f"[스케줄 stderr] id={sid}: {stderr[:300]}")
                         if not response and stderr:
                             response = f"(스케줄 오류: {stderr[:200]})"
                         elif not response:
@@ -239,8 +244,9 @@ async def run_scheduler(bot, call_claude_fn):
                                 await bot.send_message(chat_id=chat_id, text=full_response[i:i + 4000])
                         else:
                             await bot.send_message(chat_id=chat_id, text=full_response)
+                        logger.info(f"[스케줄 전송 완료] id={sid}")
                     except Exception as e:
-                        logger.error(f"[스케줄 실행 오류] id={sid}: {e}")
+                        logger.error(f"[스케줄 실행 오류] id={sid}: {e}", exc_info=True)
 
                     if schedule.get("repeat") == "once":
                         executed_once_ids.append(sid)
