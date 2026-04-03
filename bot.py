@@ -523,7 +523,12 @@ def ensure_claude_md():
 async def post_init(application):
     """폴링 시작 후 스케줄러를 백그라운드 태스크로 실행."""
     init_scheduler()
-    application.create_task(run_scheduler(application.bot, call_claude))
+    SCHEDULE_TIMEOUT = 300  # 스케줄 실행은 300초 타임아웃
+
+    async def call_claude_for_schedule(message: str) -> tuple[str, str, bool]:
+        return await call_claude(message, timeout=SCHEDULE_TIMEOUT)
+
+    application.create_task(run_scheduler(application.bot, call_claude_for_schedule))
 
 
 def main():

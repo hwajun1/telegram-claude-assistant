@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
 schedules.yaml.bak
+schedules.yaml
 config.yaml
 logs/
