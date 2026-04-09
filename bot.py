@@ -524,8 +524,22 @@ def ensure_claude_md():
         logger.info(f"CLAUDE.md 이미 존재: {claude_md_path}")
 
 
+async def vpn_watchdog(application):
+    """주기적으로 VPN 상태를 체크. 연결 감지 시 봇을 종료시킨다.
+
+    종료하면 launchd가 KeepAlive로 즉시 재시작하고, main()의
+    시작 게이트가 잡아 대기 모드로 들어간다.
+    """
+    while True:
+        await asyncio.sleep(VPN_CHECK_INTERVAL)
+        if is_vpn_on():
+            logger.info("[VPN] 동작 중 연결 감지. 봇 종료 (launchd가 재시작하여 대기 모드 진입).")
+            application.stop_running()  # PTB v20+ 동기 메서드
+            return
+
+
 async def post_init(application):
-    """폴링 시작 후 스케줄러를 백그라운드 태스크로 실행."""
+    """폴링 시작 후 스케줄러와 VPN watchdog을 백그라운드 태스크로 실행."""
     init_scheduler()
     SCHEDULE_TIMEOUT = 300  # 스케줄 실행은 300초 타임아웃
 
@@ -533,6 +547,7 @@ async def post_init(application):
         return await call_claude(message, timeout=SCHEDULE_TIMEOUT)
 
     application.create_task(run_scheduler(application.bot, call_claude_for_schedule))
+    application.create_task(vpn_watchdog(application))
 
 
 def main():
