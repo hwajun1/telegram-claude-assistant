@@ -16,6 +16,7 @@ from scheduler import (
     add_pattern_log, add_schedule_to_data, remove_schedule_from_data,
     parse_schedule_block, parse_delete_block, run_scheduler, get_file_lock,
 )
+from vpn import is_vpn_on, wait_for_vpn_off
 
 # 설정 파일 로드
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -76,6 +77,9 @@ chat_history: dict[int, list[dict[str, str]]] = {}
 DEFAULT_TIMEOUT = 120
 # 타임아웃 재시도 대기 상태: chat_id -> retry info
 pending_retries: dict[int, dict] = {}
+
+# VPN 체크 주기 (시작 게이트와 런타임 watchdog 공통)
+VPN_CHECK_INTERVAL = 60
 
 
 
@@ -535,6 +539,7 @@ def main():
     """봇 초기화 및 실행. CLAUDE.md 생성 → 핸들러 등록 → 스케줄러 시작 → 폴링 시작."""
     ensure_claude_md()
     load_schedules()  # 시작 시 YAML 로드 (동기, Lock 불필요)
+    wait_for_vpn_off(VPN_CHECK_INTERVAL, logger)
 
     app = (
         Application.builder()
