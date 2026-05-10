@@ -4,3 +4,6 @@ schedules.yaml.bak
 schedules.yaml
 config.yaml
 logs/
+
+# 작업 흐름·블로그·기획 문서는 로컬 전용 (GitHub 노출 안 함)
+docs/
